@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abir — Web3, airdrops and AI</title>
+<meta name="description" content="Abir is a Web3 power user, airdrop farmer, content creator and AI specialist from Rajshahi, Bangladesh.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2')}
+@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2) format('woff2')}
+@font-face{font-family:'Baloo 2';font-style:normal;font-weight:800;font-display:swap;src:url(https://fonts.gstatic.com/s/baloo2/v23/wXK0E3kTposypRydzVT08TS3JnAmtdiayppo_lc.woff2) format('woff2')}
+:root{--u:1;--n:1px}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:#C2B0DC;font-family:Poppins,system-ui,sans-serif;color:#fff;-webkit-font-smoothing:antialiased;touch-action:pan-y}
+a{color:#fff;text-decoration:none}
+button{font:inherit;color:#fff;background:none;border:none;cursor:pointer}
+.stage{position:fixed;inset:0;overflow:hidden;user-select:none;-webkit-user-select:none}
+.slide{position:absolute;inset:0;overflow:hidden;display:none;background:var(--bg)}
+.slide.current{display:block;z-index:2}
+.frame{position:absolute;width:1440px;height:900px;transform-origin:0 0;transform:scale(var(--u))}
+.layer{position:absolute;inset:0;will-change:transform}
+.word span{position:absolute;left:0;width:1440px;text-align:center;font-weight:700;line-height:1;white-space:nowrap;color:#fff}
+.shadow-el{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(60,40,80,.22),rgba(60,40,80,0));filter:blur(4px)}
+.card{position:absolute;display:flex;flex-direction:column;align-items:center;text-align:center;background:rgba(255,255,255,.94);border-radius:40px;box-shadow:0 30px 60px rgba(60,40,80,.18);padding:34px 28px 30px}
+.card .avatar{width:200px;height:200px;border-radius:50%;object-fit:cover;background:var(--bg);flex:none}
+.card .name{font-family:'Baloo 2',Poppins,sans-serif;font-weight:800;font-size:42px;line-height:1.1;color:var(--deep);margin-top:20px}
+.card .loc{font-weight:500;font-size:15px;color:var(--deep);opacity:.72;margin-top:4px}
+.card .role{font-weight:600;font-size:18px;line-height:1.35;color:var(--deep);margin-top:14px;min-height:48px;display:flex;align-items:center}
+.card .stats{display:flex;gap:34px;margin-top:16px}
+.card .stat b{display:block;font-weight:700;font-size:28px;line-height:1;color:var(--deep)}
+.card .stat span{display:block;font-weight:500;font-size:13px;color:var(--deep);opacity:.72;margin-top:5px}
+.chip{position:absolute;width:max-content;min-width:var(--w);height:46px}
+.chip-inner{display:flex;align-items:center;justify-content:center;height:100%;padding:0 18px;border-radius:999px;background:var(--deep);color:#fff;font-weight:500;font-size:16px;white-space:nowrap;text-shadow:0 1px 6px rgba(90,70,40,.18);box-shadow:0 10px 24px rgba(60,40,80,.16);animation:bob var(--dur,4s) ease-in-out infinite alternate;animation-delay:var(--del,0s)}
+@keyframes bob{from{transform:translateY(-7px) rotate(calc(var(--rot,0deg) - 3deg))}to{transform:translateY(7px) rotate(calc(var(--rot,0deg) + 3deg))}}
+.blob{position:absolute;border-radius:50%;background:var(--deep);opacity:.55;filter:blur(9px)}
+.ui{position:fixed;inset:0;z-index:10;pointer-events:none}
+.ui a,.ui button{pointer-events:auto}
+.ui .rise{opacity:0;translate:0 14px}
+.header{position:absolute;left:calc(var(--n)*50);right:calc(var(--n)*50);top:calc(var(--n)*26);height:calc(var(--n)*50);display:flex;align-items:center}
+.logo{font-family:'Baloo 2',Poppins,sans-serif;font-weight:800;font-size:calc(var(--n)*51);letter-spacing:-.02em;line-height:1;text-shadow:0 1px 6px rgba(90,70,40,.18)}
+.account{margin-left:auto;display:flex;align-items:center;gap:calc(var(--n)*22);font-weight:500;font-size:calc(var(--n)*21)}
+.account .sep{opacity:.9}
+.account a{text-shadow:0 1px 6px rgba(90,70,40,.18)}
+.tabs{position:absolute;left:50%;top:calc(var(--n)*26);transform:translateX(-50%);display:flex;gap:calc(var(--n)*88);font-weight:500;font-size:calc(var(--n)*21)}
+.tabs button{padding:calc(var(--n)*6) 0;text-shadow:0 1px 6px rgba(90,70,40,.18);line-height:1.4}
+.underline{position:absolute;top:calc(100% + var(--n)*2);left:0;height:2px;border-radius:2px;background:#fff;transition:transform .6s cubic-bezier(.65,0,.35,1),width .6s cubic-bezier(.65,0,.35,1)}
+.shop{position:absolute;left:50%;bottom:calc(var(--n)*36);transform:translateX(-50%);font-weight:600;font-size:calc(var(--n)*21);letter-spacing:.2em;padding:calc(var(--n)*10) calc(var(--n)*16);text-shadow:0 1px 6px rgba(90,70,40,.18);white-space:nowrap}
+.arrow{position:absolute;bottom:calc(var(--n)*30);width:calc(var(--n)*52);height:calc(var(--n)*52);display:flex;align-items:center;justify-content:center}
+.arrow.prev{left:calc(var(--n)*36)}
+.arrow.next{right:calc(var(--n)*36)}
+.arrow svg{width:calc(var(--n)*28);height:calc(var(--n)*28);stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 6px rgba(90,70,40,.18))}
+@media (prefers-reduced-motion:reduce){
+  .chip-inner{animation:none!important;transform:rotate(var(--rot,0deg))}
+  .underline{transition:none!important}
+}
+@media (max-width:820px),(orientation:portrait){
+  .header{left:20px;right:20px;top:16px;height:40px}
+  .logo{font-size:34px}
+  .account{gap:10px;font-size:15px}
+  .tabs{top:52px;gap:22px;font-size:15px}
+  .tabs button{padding:6px 0}
+  .underline{top:calc(100% + 2px)}
+  .shop{font-size:15px;bottom:22px;padding:10px 16px}
+  .arrow{width:48px;height:48px;bottom:12px}
+  .arrow.prev{left:8px}
+  .arrow.next{right:8px}
+  .arrow svg{width:24px;height:24px}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage"></div>
+<div class="ui">
+  <header class="header">
+    <a class="logo rise" id="logo" href="#">Abir</a>
+    <nav class="account rise" id="account" aria-label="Profiles">
+      <a href="https://x.com/DabidWm" target="_blank" rel="noopener">X</a>
+      <span class="sep" aria-hidden="true">|</span>
+      <a href="https://github.com/Abir2021" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+  <nav class="tabs rise" id="tabs" aria-label="Sections"></nav>
+  <a class="shop rise" id="shop" href="https://x.com/DabidWm" target="_blank" rel="noopener">WORK WITH ME</a>
+  <button class="arrow prev rise" id="prev" aria-label="Previous flavour">
+    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M24 14H4 M12 6l-8 8 8 8"/></svg>
+  </button>
+  <button class="arrow next rise" id="next" aria-label="Next flavour">
+    <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M4 14h20 M16 6l8 8-8 8"/></svg>
+  </button>
+</div>
+<script>
+(function(){
+'use strict';
+var root=document.documentElement;
+var stage=document.getElementById('stage');
+var tabsEl=document.getElementById('tabs');
+var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var SHADOWS=[{cx:345,cy:650,w:170,h:24},{cx:720,cy:708,w:320,h:30},{cx:1318,cy:638,w:160,h:22},{cx:1045,cy:760,w:150,h:22}];
+var FACTORS={word:.40,shadow:.30,bottle:.15,fruit:.55,corner:.75};
+var COVER=[[0,0],[.031,.006],[.134,.012],[.206,.023],[.278,.047],[.34,.07],[.412,.105],[.485,.158],[.546,.246],[.583,.55],[.62,.825],[.69,.9],[.79,.94],[.85,.956],[.93,.975],[1,1]];
+var FLAVOURS=[
+ {id:'web3',tab:'Web3',word:'WEB3',bg:'#C2B0DC',deep:'#8B7AB8',bottle:{x:518,y:138,w:372},
+  role:'Web3 power user since 2020',stats:[['200+','platforms'],['50+','chains']],
+  chips:[{t:'Solana',x:383,y:178,w:104,r:0},{t:'Arc',x:960,y:232,w:118,r:0},{t:'DeFi',x:295,y:478,w:129,r:-8},{t:'EVM',x:1247,y:455,w:123,r:15},{t:'MetaMask',x:968,y:590,w:110,r:30}],
+  corners:[{x:-15,y:590,w:255},{x:1282,y:40,w:200}]},
+ {id:'airdrops',tab:'Airdrops',word:'AIRDROPS',bg:'#B4D58A',deep:'#7FA85C',bottle:{x:504,y:135,w:403},
+  role:'Airdrop farmer and points hunter',stats:[['4','live campaigns'],['Arc','inscriptions']],
+  chips:[{t:'Hibachi',x:376,y:170,w:144,r:-15},{t:'Rally',x:960,y:228,w:152,r:0},{t:'GenLayer',x:303,y:460,w:168,r:0},{t:'CONSO BOTS',x:1187,y:462,w:148,r:-25},{t:'Arc',x:946,y:606,w:150,r:10}],
+  corners:[{x:-10,y:575,w:260},{x:1285,y:30,w:200}]},
+ {id:'content',tab:'Content',word:'CONTENT',bg:'#F3DA8A',deep:'#D9A83C',bottle:{x:512,y:135,w:383},
+  role:'@DabidWm on X, Polymarket creator',stats:[['X Premium','creator'],['LinkedIn','growing']],
+  chips:[{t:'X',x:387,y:147,w:123,r:0},{t:'LinkedIn',x:970,y:223,w:136,r:-10},{t:'Polymarket',x:298,y:483,w:132,r:15},{t:'Vercel',x:1245,y:462,w:150,r:20},{t:'GitHub',x:950,y:582,w:130,r:-12}],
+  corners:[{x:0,y:585,w:235},{x:1280,y:30,w:190}]},
+ {id:'ai',tab:'AI',word:'AI',bg:'#F2AFC0',deep:'#D97B96',bottle:{x:512,y:135,w:386},
+  role:'AI certified, annotation and audit work',stats:[['2','AI certs'],['Cantina','audits']],
+  chips:[{t:'Alignerr',x:372,y:142,w:128,r:0},{t:'Outlier',x:955,y:225,w:117,r:20},{t:'Prolific',x:290,y:455,w:140,r:-10},{t:'Foundry',x:1250,y:432,w:135,r:15},{t:'Claude',x:962,y:558,w:146,r:-15}],
+  corners:[{x:-10,y:555,w:245},{x:1285,y:35,w:200}]}
+];
+function el(tag,cls){var e=document.createElement(tag);if(cls)e.className=cls;return e;}
+function rnd(a,b){return a+Math.random()*(b-a);}
+/* Build slides */
+var slides=[];
+FLAVOURS.forEach(function(f,i){
+  var sec=el('section','slide'+(i===0?' current':''));
+  sec.style.setProperty('--bg',f.bg);sec.style.setProperty('--deep',f.deep);
+  sec.setAttribute('aria-label',f.tab);
+  var frame=el('div','frame');
+  var wordL=el('div','layer word');var wordSpan=el('span');wordSpan.textContent=f.word;wordL.appendChild(wordSpan);
+  var shadowL=el('div','layer shadow');
+  SHADOWS.forEach(function(s){var d=el('div','shadow-el');d.style.left=(s.cx-s.w/2)+'px';d.style.top=(s.cy-s.h/2)+'px';d.style.width=s.w+'px';d.style.height=s.h+'px';shadowL.appendChild(d);});
+  var bottleL=el('div','layer bottle');
+  var card=el('div','card');
+  card.style.left=f.bottle.x+'px';card.style.top=f.bottle.y+'px';card.style.width=f.bottle.w+'px';card.style.height='574px';
+  var img=el('img','avatar');img.src='assets/abir-photo.webp';img.alt='Abir on his motorcycle';
+  var name=el('div','name');name.textContent='Abir';
+  var loc=el('div','loc');loc.textContent='BBA, Varendra University · Rajshahi';
+  var role=el('div','role');role.textContent=f.role;
+  var stats=el('div','stats');
+  f.stats.forEach(function(st){var s=el('div','stat');var b=el('b');b.textContent=st[0];var sp=el('span');sp.textContent=st[1];s.appendChild(b);s.appendChild(sp);stats.appendChild(s);});
+  card.appendChild(img);card.appendChild(name);card.appendChild(loc);card.appendChild(role);card.appendChild(stats);
+  bottleL.appendChild(card);
+  var fruitL=el('div','layer fruit');
+  f.chips.forEach(function(c){
+    var outer=el('div','chip');outer.style.left=c.x+'px';outer.style.top=c.y+'px';outer.style.setProperty('--w',c.w+'px');
+    var inner=el('div','chip-inner');inner.textContent=c.t;
+    inner.style.setProperty('--rot',c.r+'deg');
+    inner.style.setProperty('--dur',rnd(3.2,5.0).toFixed(2)+'s');
+    inner.style.setProperty('--del',(-rnd(0,4)).toFixed(2)+'s');
+    outer.appendChild(inner);fruitL.appendChild(outer);
+  });
+  var cornerL=el('div','layer corner');
+  f.corners.forEach(function(c){var b=el('div','blob');b.style.left=c.x+'px';b.style.top=c.y+'px';b.style.width=c.w+'px';b.style.height=c.w+'px';cornerL.appendChild(b);});
+  frame.appendChild(wordL);frame.appendChild(shadowL);frame.appendChild(bottleL);frame.appendChild(fruitL);frame.appendChild(cornerL);
+  sec.appendChild(frame);stage.appendChild(sec);
+  slides.push({el:sec,frame:frame,word:wordSpan,layers:{word:wordL,shadow:shadowL,bottle:bottleL,fruit:fruitL,corner:cornerL}});
+});
+/* Tabs + underline */
+var tabBtns=[];
+FLAVOURS.forEach(function(f,i){
+  var b=el('button');b.textContent=f.tab;b.setAttribute('aria-current',i===0?'true':'false');
+  b.addEventListener('click',function(){mark();goTo(i,i>current?1:-1);});
+  tabsEl.appendChild(b);tabBtns.push(b);
+});
+var underline=el('span','underline');tabsEl.appendChild(underline);
+function moveUnderline(i){
+  var b=tabBtns[i];
+  underline.style.width=b.offsetWidth+'px';
+  underline.style.transform='translateX('+b.offsetLeft+'px)';
+}
+function updateTabs(){tabBtns.forEach(function(b,i){b.setAttribute('aria-current',i===current?'true':'false');});}
+/* Scaling + word sizing */
+var meas=document.createElement('canvas').getContext('2d');
+function inkWidth(word,px){meas.font='700 '+px+'px Poppins';var m=meas.measureText(word);return (m.actualBoundingBoxLeft||0)+(m.actualBoundingBoxRight||0);}
+function isMobile(){return window.innerWidth<=820||window.innerHeight>window.innerWidth;}
+var currentU=1;
+function layout(){
+  var vw=window.innerWidth,vh=window.innerHeight,mobile=isMobile(),u,fy=0;
+  if(mobile){u=Math.min(vw/640,(vh-200)/620);fy=8;}
+  else{u=Math.min(vw/1440,vh/900);}
+  currentU=u;
+  root.style.setProperty('--u',u);
+  var n=mobile?1:Math.min(1.3,Math.max(.5,Math.min(vw/1440,vh/900)));
+  root.style.setProperty('--n',n+'px');
+  var left=vw/2-720*u,top=vh/2-450*u+fy;
+  slides.forEach(function(s){s.frame.style.left=left+'px';s.frame.style.top=top+'px';});
+  slides.forEach(function(s,i){
+    var word=FLAVOURS[i].word,w100=inkWidth(word,100),F=445,ls=.005;
+    if(mobile){
+      var visW=Math.min(1440,vw/u)*.92;
+      if(w100*4.45>visW){ls=-.035;F=Math.min(445,visW/(w100/100*.965));}
+    }else{
+      if(w100*4.45>1330){ls=-.035;F=Math.min(445,1400/(w100/100*.965));}
+    }
+    var baseline=403.5+.698*F/2;
+    s.word.style.fontSize=F+'px';
+    s.word.style.letterSpacing=ls+'em';
+    s.word.style.top=(baseline-.85*F)+'px';
+  });
+  moveUnderline(current);
+}
+window.addEventListener('resize',layout);
+/* Transitions */
+var current=0,animating=false,lastInteraction=-Infinity,introAnims=[],introDone=false;
+function smoothstep(k){return 3*k*k-2*k*k*k;}
+function cover(t){
+  if(t<=0)return 0;if(t>=1)return 1;
+  for(var i=1;i<COVER.length;i++){
+    if(t<=COVER[i][0]){
+      var t0=COVER[i-1][0],c0=COVER[i-1][1],t1=COVER[i][0],c1=COVER[i][1];
+      return c0+(c1-c0)*smoothstep((t-t0)/(t1-t0));
+    }
+  }
+  return 1;
+}
+function easeOutQuad(x){return 1-(1-x)*(1-x);}
+function mark(){lastInteraction=performance.now();}
+function swapInstant(target){
+  slides[current].el.style.display='none';
+  slides[target].el.style.display='block';
+  slides[target].el.style.zIndex=2;
+  current=target;moveUnderline(target);updateTabs();
+}
+function goTo(target,dir){
+  if(animating||target===current)return;
+  if(reduced){mark();swapInstant(target);return;}
+  introAnims.forEach(function(a){try{a.cancel();}catch(e){}});
+  document.querySelectorAll('.rise').forEach(function(e){e.classList.remove('rise');});
+  animating=true;mark();
+  var A=slides[current],B=slides[target];
+  B.el.style.display='block';B.el.style.zIndex=1;
+  A.el.style.zIndex=2;
+  moveUnderline(target);
+  var start=performance.now();
+  function frame(now){
+    var t=Math.min((now-start)/970,1);
+    var c=cover(t);
+    A.el.style.clipPath=dir>0?'inset(0 '+(c*100)+'% 0 0)':'inset(0 0 0 '+(c*100)+'%)';
+    var drift=-dir*c*.14*1440;
+    Object.keys(A.layers).forEach(function(k){A.layers[k].style.transform='translateX('+drift+'px)';});
+    var k=Math.min(Math.max(easeOutQuad((t-.5)/.42),0),1);
+    Object.keys(B.layers).forEach(function(name){
+      B.layers[name].style.transform='translateX('+(dir*(1-k)*FACTORS[name]*1440)+'px)';
+    });
+    if(t<1){requestAnimationFrame(frame);}
+    else{
+      Object.keys(A.layers).forEach(function(x){A.layers[x].style.transform='';});
+      Object.keys(B.layers).forEach(function(x){B.layers[x].style.transform='';});
+      A.el.style.clipPath='';A.el.style.display='none';B.el.style.zIndex=2;
+      current=target;animating=false;updateTabs();
+    }
+  }
+  requestAnimationFrame(frame);
+}
+function next(){goTo((current+1)%FLAVOURS.length,1);}
+function prev(){goTo((current+FLAVOURS.length-1)%FLAVOURS.length,-1);}
+document.getElementById('next').addEventListener('click',function(){mark();next();});
+document.getElementById('prev').addEventListener('click',function(){mark();prev();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'){mark();next();}
+  else if(e.key==='ArrowLeft'){mark();prev();}
+});
+var downX=0,downY=0;
+stage.addEventListener('pointerdown',function(e){downX=e.clientX;downY=e.clientY;});
+window.addEventListener('pointerup',function(e){
+  var dx=e.clientX-downX,dy=e.clientY-downY;
+  if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)){mark();if(dx<0)next();else prev();}
+});
+setInterval(function(){
+  if(document.hidden)return;
+  if(performance.now()-lastInteraction<6000)return;
+  next();
+},2600);
+/* Opening sequence */
+function intro(){
+  if(introDone)return;
+  if(reduced){document.querySelectorAll('.rise').forEach(function(e){e.classList.remove('rise');});introDone=true;return;}
+  var ease='cubic-bezier(0.22, 0.8, 0.3, 1)';
+  var B=slides[0];
+  Object.keys(B.layers).forEach(function(name){
+    var f=FACTORS[name];
+    var a=B.layers[name].animate([{transform:'translateX('+(f*1440)+'px)'},{transform:'translateX(0px)'}],{duration:900,easing:ease,fill:'forwards'});
+    a.onfinish=function(){try{a.cancel();}catch(e){}};
+    introAnims.push(a);
+  });
+  var ui=[[document.getElementById('logo'),250],[tabsEl,330],[document.getElementById('account'),410],[document.getElementById('prev'),490],[document.getElementById('shop'),570],[document.getElementById('next'),650]];
+  ui.forEach(function(pair){
+    var a=pair[0].animate([{translate:'0 14px',opacity:0},{translate:'0 0',opacity:1}],{duration:1000,delay:pair[1],easing:ease,fill:'forwards'});
+    a.onfinish=function(){try{a.cancel();}catch(e){}pair[0].classList.remove('rise');};
+    introAnims.push(a);
+  });
+  introDone=true;
+}
+setTimeout(function(){
+  introAnims.forEach(function(a){try{a.finish();}catch(e){}});
+  document.querySelectorAll('.rise').forEach(function(e){e.classList.remove('rise');});
+  introDone=true;
+},3000);
+layout();
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){layout();intro();});}
+else{intro();}
+})();
+</script>
+</body>
+</html>
